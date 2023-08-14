@@ -1,20 +1,37 @@
-Generate an ultimate performance Nginx server docker image. 
+Generate an ultimate performance Nginx server docker image.
 
-Instruction: 
+Instruction:
 1. Use the Alpine 3.18.3 image as a base.
-2. Set up build environment by installing the following alpine packages: build-base, pcre-dev, zlib-dev, openssl-dev, git, geoip-dev, automake, autoconf, libtool, wget, unzip, gnupg, brotli-dev, libmaxminddb-dev, make, musl-dev, go, perl-dev, gd-dev, ca-certificates, gcc, libc-dev, linux-headers, g++, cmake, tar, and readline-dev
-3.  Then download and extract the Nginx version 1.25.1 source file from http://nginx.org/download/nginx-1.25.1.tar.gz into an appropriate folder
-2. Clone and cd into this git https://github.com/quictls/openssl, checkout to 'openssl-3.1.2+quic' branch, and then run the following commands:
+2. Set up build environment by installing the following alpine packages with --no-cache: build-base, pcre-dev, zlib-dev, openssl-dev, git, geoip-dev, automake, autoconf, libtool, wget, unzip, gnupg, brotli-dev, libmaxminddb-dev, make, musl-dev, go, perl-dev, gd-dev, ca-certificates, gcc, libc-dev, linux-headers, g++, cmake, tar, and readline-dev
+3. Clone and cd into this git https://github.com/quictls/openssl, checkout to 'openssl-3.1.2+quic' branch, and then run the following commands:
 ./Configure --prefix=/usr --openssldir=/etc/ssl --libdir=lib
 make -j$(nproc)
 make install
-3. Download and build the following Nginx modules:
-- ModSecurity-nginx (https: //github. Com/spiderlabs/modsecurity-nginx)
-- brotli (https: //github. Com/google/ngx_brotli),
-- http3 (https: //nginx. Org/en/docs/http/ngx_http_v3_module. Html)
-- geoip 2 (https: //github. Com/leev/ngx_http_geoip2_module)
--pagespeed module (https: //github. Com/apache/incubator-pagespeed-ngx)
+5. Then download and extract the Nginx version 1.25.1 source file from http://nginx.org/download/nginx-1.25.1.tar.gz into an ~/temp folder
+6. Use the exracted folder as WORKDIR, then download and build the following Nginx modules :
+- ModSecurity-nginx (https://github.com/spiderlabs/modsecurity-nginx)
+- brotli (https://github.com/google/ngx_brotli)
+- geoip 2 (https://github.com/leev/ngx_http_geoip2_module)
+- pagespeed module (https://github.com/apache/incubator-pagespeed-ngx)
 
 Also, add php fpm 8.2 and certbot
 
-Links: https: //nginx. Org/en/docs/configure. Html, https: //codedamn. Com/news/backend/leveraging-http3-with-nginx, https: //quic. Nginx. Org/readme
+
+
+# nginx -V
+nginx version: nginx/1.25.1
+built by gcc 12.2.0 (Debian 12.2.0-14) 
+built with OpenSSL 3.0.9 30 May 2023
+TLS SNI support enabled
+configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_v3_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -ffile-prefix-map=/data/builder/debuild/nginx-1.25.1/debian/debuild-base/nginx-1.25.1=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'
+# cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+#
