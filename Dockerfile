@@ -74,7 +74,7 @@ ARG CONFIG="\
 		--add-dynamic-module=/usr/src/ngx_http_geoip2_module \
 	"
 
-FROM alpine:3.17 AS base
+FROM alpine:3.18.3 AS base
 
 ARG NGINX_VERSION
 ARG NGINX_COMMIT

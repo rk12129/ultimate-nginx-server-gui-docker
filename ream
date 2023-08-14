@@ -1,0 +1,20 @@
+Generate an ultimate performance Nginx server docker image. 
+
+Instruction: 
+1. Use the Alpine 3.18.3 image as a base.
+2. Set up build environment by installing the following alpine packages: build-base, pcre-dev, zlib-dev, openssl-dev, git, geoip-dev, automake, autoconf, libtool, wget, unzip, gnupg, brotli-dev, libmaxminddb-dev, make, musl-dev, go, perl-dev, gd-dev, ca-certificates, gcc, libc-dev, linux-headers, g++, cmake, tar, and readline-dev
+3.  Then download and extract the Nginx version 1.25.1 source file from http://nginx.org/download/nginx-1.25.1.tar.gz into an appropriate folder
+2. Clone and cd into this git https://github.com/quictls/openssl, checkout to 'openssl-3.1.2+quic' branch, and then run the following commands:
+./Configure --prefix=/usr --openssldir=/etc/ssl --libdir=lib
+make -j$(nproc)
+make install
+3. Download and build the following Nginx modules:
+- ModSecurity-nginx (https: //github. Com/spiderlabs/modsecurity-nginx)
+- brotli (https: //github. Com/google/ngx_brotli),
+- http3 (https: //nginx. Org/en/docs/http/ngx_http_v3_module. Html)
+- geoip 2 (https: //github. Com/leev/ngx_http_geoip2_module)
+-pagespeed module (https: //github. Com/apache/incubator-pagespeed-ngx)
+
+Also, add php fpm 8.2 and certbot
+
+Links: https: //nginx. Org/en/docs/configure. Html, https: //codedamn. Com/news/backend/leveraging-http3-with-nginx, https: //quic. Nginx. Org/readme
